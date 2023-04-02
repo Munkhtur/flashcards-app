@@ -12,9 +12,10 @@ class DeckView extends StatefulWidget {
 }
 
 class _DeckViewState extends State<DeckView> {
-  PageController _pageController = PageController();
+  PageController _pageController = PageController(viewportFraction: 0.8);
   bool typing = false;
   String title = '';
+  int currentPage = 0;
   void onTap() {
     setState(() {
       typing = !typing;
@@ -24,6 +25,14 @@ class _DeckViewState extends State<DeckView> {
   @override
   void initState() {
     title = widget.data.name;
+    _pageController.addListener(() {
+      int next = _pageController.page!.round();
+      if (currentPage != next) {
+        setState(() {
+          currentPage = next;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -36,32 +45,19 @@ class _DeckViewState extends State<DeckView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          title: typing
-              ? titleBox(
-                  onTap: onTap,
-                  oldTitle: widget.data.name,
-                  id: widget.data.id,
-                  setname: setName,
-                )
-              : InkWell(
-                  onTap: onTap,
-                  child: Text(title),
-                ),
-        ),
-        SliverToBoxAdapter(
-          child: Container(
-            child: Row(
-              children: [
-                MyCard(),
-                MyCard(),
-              ],
-            ),
+        appBar: AppBar(title: Text("fjhaklsj")),
+        body: Container(
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height * 0.8,
+          child: PageView.builder(
+            scrollDirection: Axis.horizontal,
+            controller: _pageController,
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              bool active = index == currentPage;
+              return MyCard(active: active);
+            },
           ),
-        )
-      ],
-    ));
+        ));
   }
 }
