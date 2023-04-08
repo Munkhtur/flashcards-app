@@ -59,7 +59,9 @@ class _DeckViewState extends State<DeckView> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel?>(context);
-    final profile = DatabaseService(uid: user!.uid).profile();
+    // final profile = DatabaseService(uid: user!.uid).getProfile();
+    ProfileModel profile = Provider.of<CommonProvider>(context).profile;
+
     void _showAddForm() {
       showModalBottomSheet(
           shape: RoundedRectangleBorder(
@@ -112,7 +114,7 @@ class _DeckViewState extends State<DeckView> {
                         final state = _expandableFABKey.currentState;
                         state!.toggle();
                         print({"prfile": profile});
-                        DatabaseService(uid: user.uid).addToMastered(
+                        DatabaseService(uid: user!.uid).addToMastered(
                             provider.currentId, profile.numOfMasterd);
                         return print('pressedOK');
                       }

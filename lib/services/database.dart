@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class DatabaseService {
   final String? uid;
   final String? collectionId;
-  dynamic data;
+  Map<String, dynamic>? data;
 
   DatabaseService({this.uid, this.collectionId, this.data});
   //collection reference
@@ -69,25 +69,30 @@ class DatabaseService {
   //   return ProfileModel.fromMap(data);
   // }
 
- Stream<ProfileModel> profile {
-    profileCollection.doc(uid).get().then((doc) => {this.data = doc.data()});
+//  Stream<ProfileModel> profile {
+//     profileCollection.doc(uid).get().then((doc) => {this.data = doc.data()});
 
-    // .map((event) {
-    //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
-    //   return ProfileModel.fromMap(data);
-    // });
-    return ProfileModel.fromMap(data);
-  }
+//     // .map((event) {
+//     //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
+//     //   return ProfileModel.fromMap(data);
+//     // });
+//     return ProfileModel.fromMap(data);
+//   }
 
-  ProfileModel getProfile() {
-    profileCollection.doc(uid).get().then((doc) => {this.data = doc.data()});
+  // ProfileModel getProfile() {
+  //   profileCollection.doc(uid).get().then(
+  //         (doc) => {
+  //           this.data = doc.data() as Map<String, dynamic>,
+  //         },
+  //       );
 
-    // .map((event) {
-    //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
-    //   return ProfileModel.fromMap(data);
-    // });
-    return ProfileModel.fromMap(data);
-  }
+  //   // .map((event) {
+  //   //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
+  //   //   return ProfileModel.fromMap(data);
+  //   // });
+  //   print({"datage data": this.data});
+  //   return ProfileModel.fromMap(this.data);
+  // }
 
   List<DeckModel> _deckListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -134,8 +139,6 @@ class DatabaseService {
   }
 
   void addToMastered(String id, int cur) async {
-    print({"msdter": cur});
-    print({"msdter": id});
     cardCollection.doc(id).delete().then((doc) => print({"Document deleted"}),
         onError: (e) => print("Error updating document $e"));
     await profileCollection.doc(uid).update({

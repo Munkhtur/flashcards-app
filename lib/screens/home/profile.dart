@@ -19,30 +19,23 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    // final profile = Provider.of<ProfileModel>(context);
     final user = Provider.of<UserModel>(context);
-    // final profile = DatabaseService(uid: user.uid).profile;
-    // print({"profiel": profile});
-    return StreamProvider<ProfileModel?>.value(
-      value: DatabaseService(uid: user.uid).profile,
-      initialData: null,
-      child: Consumer<ProfileModel>(builder: (context, value, child) {
-        return Container(
-            child: Column(
-          children: [
-            Text(value.name),
-            Text(value.numOfCards.toString()),
-            Text(value.numOfDecks.toString()),
-            Text(value.numOfMasterd.toString()),
-            ElevatedButton(
-              onPressed: (() async {
-                await _auth.signOut();
-              }),
-              child: Text('logout'),
-            )
-          ],
-        ));
-      }),
-    );
+    // final value = DatabaseService(uid: user.uid).getProfile();
+    final value = Provider.of<CommonProvider>(context);
+    return Container(
+        child: Column(
+      children: [
+        Text(value.profile.name),
+        Text(value.profile.numOfCards.toString()),
+        Text(value.profile.numOfDecks.toString()),
+        Text(value.profile.numOfMasterd.toString()),
+        ElevatedButton(
+          onPressed: (() async {
+            await _auth.signOut();
+          }),
+          child: Text('logout'),
+        )
+      ],
+    ));
   }
 }
