@@ -1,7 +1,18 @@
+import 'package:flashcards/components/addCardDialog.dart';
 import 'package:flashcards/components/flashcard.dart';
 import 'package:flashcards/components/titleTextBox.dart';
+import 'package:flashcards/models/card.dart';
 import 'package:flashcards/models/deck.dart';
+import 'package:flashcards/models/profile.dart';
+import 'package:flashcards/providers/common.dart';
+import 'package:flashcards/services/database.dart';
+import 'package:flashcards/shared/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:confirm_dialog/confirm_dialog.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class DeckView extends StatefulWidget {
   final DeckModel data;
@@ -12,7 +23,9 @@ class DeckView extends StatefulWidget {
 }
 
 class _DeckViewState extends State<DeckView> {
+  final _expandableFABKey = GlobalKey<ExpandableFabState>();
   PageController _pageController = PageController(viewportFraction: 0.8);
+  var cardList;
   bool typing = false;
   String title = '';
   int currentPage = 0;
@@ -24,6 +37,7 @@ class _DeckViewState extends State<DeckView> {
 
   @override
   void initState() {
+    cardList = DatabaseService(collectionId: widget.data.id).cards;
     title = widget.data.name;
     _pageController.addListener(() {
       int next = _pageController.page!.round();
@@ -44,20 +58,138 @@ class _DeckViewState extends State<DeckView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("fjhaklsj")),
-        body: Container(
-          alignment: Alignment.center,
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: PageView.builder(
-            scrollDirection: Axis.horizontal,
-            controller: _pageController,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              bool active = index == currentPage;
-              return MyCard(active: active);
-            },
-          ),
-        ));
+    final user = Provider.of<UserModel?>(context);
+    final profile = DatabaseService(uid: user!.uid).profile();
+    void _showAddForm() {
+      showModalBottomSheet(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(0),
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          )),
+          context: context,
+          builder: (context) {
+            return Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+              child: AddCardForm(collectionId: widget.data.id),
+            );
+          });
+    }
+
+    return StreamBuilder<List<FlashCardModel>>(
+      stream: cardList,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Loading();
+        } else {
+          return Consumer<CommonProvider>(builder: (context2, provider, child) {
+            return Scaffold(
+              floatingActionButtonLocation: ExpandableFab.location,
+              floatingActionButton: ExpandableFab(
+                key: _expandableFABKey,
+                type: ExpandableFabType.left,
+                children: [
+                  FloatingActionButton.small(
+                      heroTag: null,
+                      child: Icon(Icons.add),
+                      onPressed: () {
+                        final state = _expandableFABKey.currentState;
+                        _showAddForm();
+                        state!.toggle();
+                      }),
+                  FloatingActionButton.small(
+                    heroTag: null,
+                    child: Icon(Icons.check),
+                    onPressed: () async {
+                      if (await confirm(
+                        context,
+                        content: Text(
+                          'Are you sure you want to add this card to mastered list and remove from deck?',
+                        ),
+                      )) {
+                        final state = _expandableFABKey.currentState;
+                        state!.toggle();
+                        print({"prfile": profile});
+                        DatabaseService(uid: user.uid).addToMastered(
+                            provider.currentId, profile.numOfMasterd);
+                        return print('pressedOK');
+                      }
+                      return print('pressedCancel');
+                    },
+                  ),
+                  FloatingActionButton.small(
+                      heroTag: null,
+                      child: Icon(Icons.delete),
+                      onPressed: () async {
+                        if (await confirm(context,
+                            content: Text(
+                                "Are you sure you want to delete this card?"))) {
+                          final state = _expandableFABKey.currentState;
+                          DatabaseService().deleteCard(provider.currentId);
+                          state!.toggle();
+                        }
+                      }),
+                ],
+              ),
+              appBar: AppBar(
+                title: typing
+                    ? titleBox(
+                        onTap: onTap,
+                        oldTitle: widget.data.name,
+                        id: widget.data.id,
+                        setname: setName,
+                      )
+                    : InkWell(
+                        onTap: onTap,
+                        child: Text(title),
+                      ),
+                actions: [
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      if (await confirm(
+                        context,
+                        content: Text(
+                          "Are you sure you want to delete this deck and all its cards?",
+                        ),
+                      )) {
+                        DatabaseService().deleteDeck(widget.data.id);
+                        Navigator.pop(context);
+                      }
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      size: 24.0,
+                    ),
+                    label: Text('Delete'), // <-- Text
+                  ),
+                ],
+              ),
+              body: snapshot.data!.length > 0
+                  ? Container(
+                      alignment: Alignment.center,
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      child: PageView.builder(
+                        scrollDirection: Axis.horizontal,
+                        controller: _pageController,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          bool active = index == currentPage;
+                          Provider.of<CommonProvider>(context, listen: false)
+                              .setCurrentId(snapshot.data![currentPage].id);
+                          return MyCard(
+                            active: active,
+                            data: snapshot.data![index],
+                          );
+                        },
+                      ),
+                    )
+                  : Text('nodata'),
+            );
+          });
+        }
+      },
+    );
   }
 }

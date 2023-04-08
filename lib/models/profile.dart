@@ -1,14 +1,14 @@
 class ProfileModel {
   final String name;
-  final int? numOfDecks;
-  final int? numOfCards;
-  final int? numOfMasterd;
+  final int numOfDecks;
+  final int numOfCards;
+  final int numOfMasterd;
 
   ProfileModel({
     required this.name,
-    this.numOfCards,
-    this.numOfDecks,
-    this.numOfMasterd,
+    required this.numOfCards,
+    required this.numOfDecks,
+    required this.numOfMasterd,
   });
 
   ProfileModel.fromMap(Map<String, dynamic> data)

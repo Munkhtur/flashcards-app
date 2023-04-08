@@ -21,20 +21,6 @@ class HomePage extends StatelessWidget {
     // print({"proilehomepafe": profile});
     print({"userhomepage": user});
 
-    List<Widget> items = [];
-
-    items.add(Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-      child: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await DatabaseService(uid: user.uid).updateDeckData('untitled');
-          },
-          child: const Text('Enabled'),
-        ),
-      ),
-    ));
-
     // print(items);
     // return Container(
     //     child: GridView.count(

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flashcards/components/deck.dart';
 import 'package:flashcards/models/deck.dart';
 import 'package:flutter/material.dart';
@@ -18,21 +19,29 @@ class DecksList extends StatelessWidget {
     final user = Provider.of<UserModel>(context);
 
     List<Widget> items = [];
+    items.add(DottedBorder(
+      color: Colors.blueAccent, //c
+      dashPattern: [3, 5],
+      borderType: BorderType.RRect,
+      radius: Radius.circular(12),
+      padding: EdgeInsets.all(6),
+      child: Container(
+        child: Center(
+          child: IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () async {
+              var data = await DatabaseService(uid: user.uid)
+                  .updateDeckData('untitled');
+              print({"data": data});
+            },
+          ),
+        ),
+      ),
+    ));
     decks.forEach((element) {
       items.add(Deck(data: element));
     });
 
-    items.add(Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-      child: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await DatabaseService(uid: user.uid).updateDeckData('untitled');
-          },
-          child: const Text('Enabled'),
-        ),
-      ),
-    ));
     return Container(
         child: GridView.count(
             primary: false,

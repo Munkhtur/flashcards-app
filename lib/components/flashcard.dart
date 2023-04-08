@@ -1,9 +1,11 @@
+import 'package:flashcards/models/card.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatelessWidget {
   final bool active;
-  const MyCard({super.key, required this.active});
+  final FlashCardModel data;
+  const MyCard({super.key, required this.active, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -28,24 +30,58 @@ class MyCard extends StatelessWidget {
         front: Container(
           transformAlignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Color(0xFF006666),
+            color: Color.fromARGB(255, 235, 238, 238),
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
           ),
           alignment: Alignment.center,
           width: 300,
           height: 300,
-          child: Text("Front"),
+          child: Text(
+            data.question,
+            style: TextStyle(fontSize: 30),
+          ),
         ),
         // back of the card
         back: Container(
+          padding: EdgeInsets.all(20),
           alignment: Alignment.center,
           width: 300,
           height: 300,
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 185, 225, 225),
+            color: Color.fromARGB(255, 255, 255, 255),
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
           ),
-          child: Text("Back"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Definition:',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(data.answer),
+                ],
+              ),
+              Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Exampe use:"),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(data.description),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

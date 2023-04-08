@@ -1,17 +1,17 @@
 class FlashCardModel {
   String id;
-  String? question;
-  String? answer;
-  String? uid;
+  String question;
+  String answer;
+  String uid;
   String collectionId;
-  String? description;
+  String description;
 
   FlashCardModel({
-    this.question,
+    required this.question,
     required this.id,
-    this.answer,
-    this.uid,
+    required this.answer,
+    required this.uid,
     required this.collectionId,
-    this.description,
+    required this.description,
   });
 }

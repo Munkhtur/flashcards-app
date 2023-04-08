@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flashcards/models/card.dart';
 import 'package:flashcards/models/deck.dart';
 import 'package:flashcards/models/profile.dart';
 import 'package:flashcards/providers/common.dart';
@@ -8,13 +10,17 @@ import 'package:provider/provider.dart';
 
 class DatabaseService {
   final String? uid;
+  final String? collectionId;
+  dynamic data;
 
-  DatabaseService({this.uid});
+  DatabaseService({this.uid, this.collectionId, this.data});
   //collection reference
   final CollectionReference profileCollection =
       FirebaseFirestore.instance.collection('profiles');
   final CollectionReference deckCollection =
       FirebaseFirestore.instance.collection('decks');
+  final CollectionReference cardCollection =
+      FirebaseFirestore.instance.collection('cards');
 
   Future updateUserData(
     String name,
@@ -37,6 +43,22 @@ class DatabaseService {
     });
   }
 
+  Future updateCardData(
+    String question,
+    String answer,
+    String uid,
+    String collectionId,
+    String description,
+  ) async {
+    return await cardCollection.doc().set({
+      "question": question,
+      "answer": answer,
+      "uid": uid,
+      "collectionId": collectionId,
+      "description": description,
+    });
+  }
+
   Future updateDeckName(String name, String id) async {
     return await deckCollection.doc(id).update({'name': name});
   }
@@ -47,12 +69,24 @@ class DatabaseService {
   //   return ProfileModel.fromMap(data);
   // }
 
-  Stream<ProfileModel> get profile {
-    return profileCollection.doc(uid).snapshots().map((event) {
-      Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
-      print({"event": data});
-      return ProfileModel.fromMap(data);
-    });
+ Stream<ProfileModel> profile {
+    profileCollection.doc(uid).get().then((doc) => {this.data = doc.data()});
+
+    // .map((event) {
+    //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
+    //   return ProfileModel.fromMap(data);
+    // });
+    return ProfileModel.fromMap(data);
+  }
+
+  ProfileModel getProfile() {
+    profileCollection.doc(uid).get().then((doc) => {this.data = doc.data()});
+
+    // .map((event) {
+    //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
+    //   return ProfileModel.fromMap(data);
+    // });
+    return ProfileModel.fromMap(data);
   }
 
   List<DeckModel> _deckListFromSnapshot(QuerySnapshot snapshot) {
@@ -73,12 +107,51 @@ class DatabaseService {
         .map((_deckListFromSnapshot));
   }
 
-  // Future<List<DeckModel>> decks() async {
-  //   return await deckCollection
-  //       .where('uid', isEqualTo: this.uid)
-  //       .get()
-  //       .then((QuerySnapshot querySnapshot) {
-  //     return _deckListFromSnapshot(querySnapshot.docs);
-  //   });
-  // }
+  List<FlashCardModel> _cardsListFromSnapshot(QuerySnapshot snapshot) {
+    print({"snapshotcardsmdoel": snapshot});
+    return snapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
+      return FlashCardModel(
+          question: data['question'] ?? "",
+          uid: data['uid'] ?? "",
+          id: doc.reference.id,
+          answer: data['answer'],
+          collectionId: data['collectionId'],
+          description: data['description']);
+    }).toList();
+  }
+
+  Stream<List<FlashCardModel>> get cards {
+    return cardCollection
+        .where("collectionId", isEqualTo: collectionId)
+        .snapshots()
+        .map(_cardsListFromSnapshot);
+  }
+
+  void deleteCard(String id) {
+    cardCollection.doc(id).delete().then((doc) => print({"Document deleted"}),
+        onError: (e) => print("Error updating document $e"));
+  }
+
+  void addToMastered(String id, int cur) async {
+    print({"msdter": cur});
+    print({"msdter": id});
+    cardCollection.doc(id).delete().then((doc) => print({"Document deleted"}),
+        onError: (e) => print("Error updating document $e"));
+    await profileCollection.doc(uid).update({
+      'numOfMastered': cur + 1,
+    });
+  }
+
+  void deleteDeck(String id) async {
+    await cardCollection
+        .where("collectionId", isEqualTo: id)
+        .get()
+        .then((value) => {
+              value.docs.forEach((element) {
+                element.reference.delete();
+              })
+            });
+    await deckCollection.doc(id).delete();
+  }
 }

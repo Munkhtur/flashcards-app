@@ -2,6 +2,8 @@ import 'package:flashcards/models/deck.dart';
 import 'package:flashcards/screens/deck_view.dart';
 import 'package:flutter/material.dart';
 
+import '../shared/tooltipshape.dart';
+
 class Deck extends StatelessWidget {
   final DeckModel data;
   const Deck({required this.data, super.key});
@@ -20,8 +22,15 @@ class Deck extends StatelessWidget {
     return InkWell(
       onTap: () => _onCardTap(context),
       child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-        child: Center(child: Text(data.name)),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.blueAccent),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        child: Center(
+          child: Text(data.name),
+        ),
       ),
     );
   }
