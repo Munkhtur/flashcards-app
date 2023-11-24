@@ -1,3 +1,4 @@
+import 'package:flashcards/providers/common.dart';
 import 'package:flashcards/services/database.dart';
 import 'package:flashcards/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +27,7 @@ class _AddCardFormState extends State<AddCardForm> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel>(context);
+    final profile = Provider.of<CommonProvider>(context).profile;
 
     return Container(
       child: Form(
@@ -91,8 +93,14 @@ class _AddCardFormState extends State<AddCardForm> {
               child: Text('Save'),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  await DatabaseService().updateCardData(question, answer,
-                      user.uid, widget.collectionId, description);
+                  await DatabaseService(uid: user.uid).updateCardData(
+                      question,
+                      answer,
+                      user.uid,
+                      widget.collectionId,
+                      description,
+                      profile.numOfCards);
+
                   Navigator.pop(context);
                 }
               },

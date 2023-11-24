@@ -377,13 +377,9 @@ class _RegisterState extends State<Register> {
                                   runSpacing: 5,
                                   children: [
                                     TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Colors.black,
-                                        foregroundColor: Colors.white,
-                                        padding: const EdgeInsets.all(16.0),
-                                        textStyle:
-                                            const TextStyle(fontSize: 20),
-                                      ),
+                                      style: Theme.of(context)
+                                          .elevatedButtonTheme
+                                          .style,
                                       onPressed: () async {
                                         if (password == passwordConfirm) {
                                           await _auth

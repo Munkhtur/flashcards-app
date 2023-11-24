@@ -26,22 +26,33 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('Flashcards'),
-        elevation: 0.0,
-        actions: <Widget>[
-          ElevatedButton(
-            onPressed: (() async {
-              await _auth.signOut();
-            }),
-            child: Text('logout'),
-          )
-        ],
-      ),
+          title: Text('Flashcards'),
+          elevation: 0.0,
+          backgroundColor: Theme.of(context).primaryColor
+
+          // actions: <Widget>[
+          //   ElevatedButton(
+          //     onPressed: (() async {
+          //       await _auth.signOut();
+          //     }),
+          //     child: Text('logout'),
+          //   )
+          // ],
+          ),
       body: _widgetOptions.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).secondaryHeaderColor,
+        unselectedItemColor: Colors.white,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+            ),
+            label: "Home",
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         currentIndex: _currentIndex,

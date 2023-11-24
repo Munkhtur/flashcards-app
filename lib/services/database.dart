@@ -24,13 +24,11 @@ class DatabaseService {
 
   Future updateUserData(
     String name,
-    int numOfDecks,
     int numOfCards,
     int numOfMastered,
   ) async {
     return await profileCollection.doc(uid).set({
       'name': name,
-      'numOfDecks': 0,
       'numOfCards': 0,
       'numOfMastered': 0,
     });
@@ -43,56 +41,21 @@ class DatabaseService {
     });
   }
 
-  Future updateCardData(
-    String question,
-    String answer,
-    String uid,
-    String collectionId,
-    String description,
-  ) async {
-    return await cardCollection.doc().set({
+  Future updateCardData(String question, String answer, String uid,
+      String collectionId, String description, int cur) async {
+    await cardCollection.doc().set({
       "question": question,
       "answer": answer,
       "uid": uid,
       "collectionId": collectionId,
       "description": description,
     });
+    updateProfile("numOfCards", cur + 1);
   }
 
   Future updateDeckName(String name, String id) async {
     return await deckCollection.doc(id).update({'name': name});
   }
-
-  // ProfileModel getProfile() {
-  //   var data = getProfileFireBase();
-  //   print({"getprofiledata": data});
-  //   return ProfileModel.fromMap(data);
-  // }
-
-//  Stream<ProfileModel> profile {
-//     profileCollection.doc(uid).get().then((doc) => {this.data = doc.data()});
-
-//     // .map((event) {
-//     //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
-//     //   return ProfileModel.fromMap(data);
-//     // });
-//     return ProfileModel.fromMap(data);
-//   }
-
-  // ProfileModel getProfile() {
-  //   profileCollection.doc(uid).get().then(
-  //         (doc) => {
-  //           this.data = doc.data() as Map<String, dynamic>,
-  //         },
-  //       );
-
-  //   // .map((event) {
-  //   //   Map<String, dynamic> data = event.data()! as Map<String, dynamic>;
-  //   //   return ProfileModel.fromMap(data);
-  //   // });
-  //   print({"datage data": this.data});
-  //   return ProfileModel.fromMap(this.data);
-  // }
 
   List<DeckModel> _deckListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
@@ -103,6 +66,14 @@ class DatabaseService {
         id: doc.reference.id,
       );
     }).toList();
+  }
+
+  Stream<ProfileModel> get profileStream {
+    return profileCollection.doc(uid).snapshots().map(
+      (doc) {
+        return ProfileModel.fromMap(doc.data() as Map<String, dynamic>?);
+      },
+    );
   }
 
   Stream<List<DeckModel>> get decks {
@@ -133,17 +104,17 @@ class DatabaseService {
         .map(_cardsListFromSnapshot);
   }
 
-  void deleteCard(String id) {
+  void deleteCard(String id, int currentTotal) async {
     cardCollection.doc(id).delete().then((doc) => print({"Document deleted"}),
         onError: (e) => print("Error updating document $e"));
+    updateProfile("numOfCards", currentTotal - 1);
   }
 
   void addToMastered(String id, int cur) async {
     cardCollection.doc(id).delete().then((doc) => print({"Document deleted"}),
         onError: (e) => print("Error updating document $e"));
-    await profileCollection.doc(uid).update({
-      'numOfMastered': cur + 1,
-    });
+
+    updateProfile("numOfMastered", cur + 1);
   }
 
   void deleteDeck(String id) async {
@@ -156,5 +127,11 @@ class DatabaseService {
               })
             });
     await deckCollection.doc(id).delete();
+  }
+
+  void updateProfile(String field, int cur) async {
+    await profileCollection.doc(uid).update({
+      field: cur,
+    });
   }
 }

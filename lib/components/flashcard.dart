@@ -30,7 +30,7 @@ class MyCard extends StatelessWidget {
         front: Container(
           transformAlignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 235, 238, 238),
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
           ),
           alignment: Alignment.center,
@@ -48,7 +48,7 @@ class MyCard extends StatelessWidget {
           width: 300,
           height: 300,
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
           ),
           child: Column(

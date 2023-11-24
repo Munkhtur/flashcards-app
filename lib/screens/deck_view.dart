@@ -88,12 +88,17 @@ class _DeckViewState extends State<DeckView> {
         } else {
           return Consumer<CommonProvider>(builder: (context2, provider, child) {
             return Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
               floatingActionButtonLocation: ExpandableFab.location,
               floatingActionButton: ExpandableFab(
+                backgroundColor: Theme.of(context).secondaryHeaderColor,
+                foregroundColor: Theme.of(context).accentColor,
                 key: _expandableFABKey,
                 type: ExpandableFabType.left,
                 children: [
                   FloatingActionButton.small(
+                      backgroundColor: Theme.of(context).secondaryHeaderColor,
+                      foregroundColor: Theme.of(context).accentColor,
                       heroTag: null,
                       child: Icon(Icons.add),
                       onPressed: () {
@@ -102,6 +107,8 @@ class _DeckViewState extends State<DeckView> {
                         state!.toggle();
                       }),
                   FloatingActionButton.small(
+                    backgroundColor: Theme.of(context).secondaryHeaderColor,
+                    foregroundColor: Theme.of(context).accentColor,
                     heroTag: null,
                     child: Icon(Icons.check),
                     onPressed: () async {
@@ -122,6 +129,8 @@ class _DeckViewState extends State<DeckView> {
                     },
                   ),
                   FloatingActionButton.small(
+                      backgroundColor: Theme.of(context).secondaryHeaderColor,
+                      foregroundColor: Theme.of(context).accentColor,
                       heroTag: null,
                       child: Icon(Icons.delete),
                       onPressed: () async {
@@ -129,13 +138,15 @@ class _DeckViewState extends State<DeckView> {
                             content: Text(
                                 "Are you sure you want to delete this card?"))) {
                           final state = _expandableFABKey.currentState;
-                          DatabaseService().deleteCard(provider.currentId);
+                          DatabaseService(uid: user!.uid).deleteCard(
+                              provider.currentId, profile.numOfCards);
                           state!.toggle();
                         }
                       }),
                 ],
               ),
               appBar: AppBar(
+                backgroundColor: Theme.of(context).primaryColor,
                 title: typing
                     ? titleBox(
                         onTap: onTap,
@@ -149,6 +160,13 @@ class _DeckViewState extends State<DeckView> {
                       ),
                 actions: [
                   ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateColor.resolveWith(
+                        (states) {
+                          return Theme.of(context).primaryColor;
+                        },
+                      ),
+                    ),
                     onPressed: () async {
                       if (await confirm(
                         context,
@@ -164,7 +182,10 @@ class _DeckViewState extends State<DeckView> {
                       Icons.delete,
                       size: 24.0,
                     ),
-                    label: Text('Delete'), // <-- Text
+                    label: Text(
+                      'Delete deck',
+                      style: TextStyle(fontSize: 15),
+                    ), // <-- Text
                   ),
                 ],
               ),

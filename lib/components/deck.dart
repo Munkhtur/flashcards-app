@@ -23,13 +23,17 @@ class Deck extends StatelessWidget {
       onTap: () => _onCardTap(context),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueAccent),
+          color: Theme.of(context).backgroundColor,
+          border: Border.all(color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
         ),
         child: Center(
-          child: Text(data.name),
+          child: Text(
+            data.name,
+            style: Theme.of(context).primaryTextTheme.titleLarge,
+          ),
         ),
       ),
     );
