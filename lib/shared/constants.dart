@@ -11,6 +11,8 @@ class CustomInput {
     var textInputDecoration = InputDecoration(
       labelText: labelText,
       hintText: hintText,
+      labelStyle: TextStyle(color: Color(0xFFe76f51)),
+      hintStyle: TextStyle(color: Color.fromARGB(255, 187, 186, 185)),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Color(0xFFF1F4F8),
@@ -20,7 +22,8 @@ class CustomInput {
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Color(0x00000000),
+          // color: Color(0x00000000),
+          color: Color(0xFFe76f51),
           width: 2,
         ),
         borderRadius: BorderRadius.circular(8),
@@ -34,7 +37,7 @@ class CustomInput {
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Color(0x00000000),
+          color: Color(0xFFe76f51),
           width: 2,
         ),
         borderRadius: BorderRadius.circular(8),

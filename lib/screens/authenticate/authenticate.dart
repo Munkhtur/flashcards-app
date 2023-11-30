@@ -1,7 +1,6 @@
 import 'package:flashcards/screens/authenticate/register.dart';
 import 'package:flashcards/screens/authenticate/sign_in.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class Authenticate extends StatefulWidget {

@@ -1,15 +1,6 @@
-import 'dart:math';
-
-import 'package:flashcards/models/profile.dart';
 import 'package:flashcards/services/auth.dart';
-import 'package:flashcards/shared/constants.dart';
 import 'package:flashcards/shared/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:provider/provider.dart';
-import '../../providers/common.dart';
-import '../../services/database.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -22,7 +13,6 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  final _controller = TextEditingController();
   String email = 'admin@gmail.com';
   String password = '123456';
   String error = "";
@@ -84,7 +74,7 @@ class _SignInState extends State<SignIn> {
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.background,
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 3,
@@ -141,12 +131,12 @@ class _SignInState extends State<SignIn> {
                                             labelText: 'Email Address',
                                             labelStyle: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2,
+                                                .titleSmall,
                                             hintText:
                                                 'Enter your email here...',
                                             hintStyle: Theme.of(context)
                                                 .textTheme
-                                                .bodyText2,
+                                                .titleSmall,
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0xFFF1F4F8),
@@ -157,7 +147,8 @@ class _SignInState extends State<SignIn> {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color: Color.fromARGB(
+                                                    255, 39, 49, 81),
                                                 width: 2,
                                               ),
                                               borderRadius:
@@ -181,14 +172,16 @@ class _SignInState extends State<SignIn> {
                                                   BorderRadius.circular(8),
                                             ),
                                             filled: true,
-                                            fillColor: Colors.white,
+                                            fillColor: Theme.of(context)
+                                                .colorScheme
+                                                .background,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     16, 24, 0, 24),
                                           ),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText2,
+                                              .bodyMedium,
                                         ),
                                       ),
                                     ],
@@ -216,15 +209,15 @@ class _SignInState extends State<SignIn> {
                                             labelText: 'Password',
                                             labelStyle: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2,
+                                                .titleSmall,
                                             hintText:
                                                 'Enter your password here...',
                                             hintStyle: Theme.of(context)
                                                 .textTheme
-                                                .bodyText2,
+                                                .bodyMedium,
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0xFFF1F4F8),
+                                                color: Colors.white,
                                                 width: 2,
                                               ),
                                               borderRadius:
@@ -232,7 +225,8 @@ class _SignInState extends State<SignIn> {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color: Color.fromARGB(
+                                                    255, 39, 49, 81),
                                                 width: 2,
                                               ),
                                               borderRadius:
@@ -249,14 +243,18 @@ class _SignInState extends State<SignIn> {
                                             focusedErrorBorder:
                                                 OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
                                                 width: 2,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
                                             filled: true,
-                                            fillColor: Colors.white,
+                                            fillColor: Theme.of(context)
+                                                .colorScheme
+                                                .background,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     16, 24, 0, 24),
@@ -279,7 +277,7 @@ class _SignInState extends State<SignIn> {
                                           ),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle1,
+                                              .titleMedium,
                                         ),
                                       ),
                                     ],
@@ -297,13 +295,9 @@ class _SignInState extends State<SignIn> {
                                     runSpacing: 5,
                                     children: [
                                       TextButton(
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Colors.black,
-                                          foregroundColor: Colors.white,
-                                          padding: const EdgeInsets.all(16.0),
-                                          textStyle:
-                                              const TextStyle(fontSize: 20),
-                                        ),
+                                        style: Theme.of(context)
+                                            .elevatedButtonTheme
+                                            .style,
                                         onPressed: () async {
                                           if (_formKey.currentState!
                                               .validate()) {
@@ -342,7 +336,10 @@ class _SignInState extends State<SignIn> {
                                       padding: const EdgeInsets.all(16.0),
                                       textStyle: const TextStyle(fontSize: 20),
                                     ),
-                                    child: Text('Create Account'),
+                                    child: Text('Create Account',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall),
                                     onPressed: () {
                                       widget.toggleView();
                                     },

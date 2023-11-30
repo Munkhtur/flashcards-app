@@ -1,9 +1,7 @@
+import 'package:flashcards/providers/common.dart';
 import 'package:flashcards/services/database.dart';
 import 'package:flashcards/shared/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../models/user.dart';
@@ -26,11 +24,14 @@ class _AddCardFormState extends State<AddCardForm> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel>(context);
+    final profile = Provider.of<CommonProvider>(context).profile;
 
     return Container(
+      // height: 1000,
       child: Form(
         key: _formKey,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Add New Card',
@@ -40,9 +41,8 @@ class _AddCardFormState extends State<AddCardForm> {
               height: 20,
             ),
             TextFormField(
-              decoration:
-                  CustomInput(labelText: "New word", hintText: 'New word')
-                      .getInputEcoration(),
+              decoration: CustomInput(labelText: "Term", hintText: 'Term')
+                  .getInputEcoration(),
               validator: (val) => val!.isEmpty ? '' : null,
               initialValue: question,
               onChanged: (value) {
@@ -69,17 +69,24 @@ class _AddCardFormState extends State<AddCardForm> {
             SizedBox(
               height: 20,
             ),
-            TextFormField(
-              decoration:
-                  CustomInput(labelText: "Example use", hintText: 'Example use')
-                      .getInputEcoration(),
-              validator: (val) => val!.isEmpty ? '' : null,
-              initialValue: description,
-              onChanged: (value) {
-                setState(() {
-                  description = value;
-                });
-              },
+            Container(
+              // height: 300,
+              child: TextFormField(
+                decoration:
+                    CustomInput(labelText: "Example", hintText: 'Example')
+                        .getInputEcoration()
+                        .copyWith(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 50), // Adjust the vertical padding
+                        ),
+                validator: (val) => val!.isEmpty ? '' : null,
+                initialValue: description,
+                onChanged: (value) {
+                  setState(() {
+                    description = value;
+                  });
+                },
+              ),
             ),
             SizedBox(
               height: 20,
@@ -91,8 +98,14 @@ class _AddCardFormState extends State<AddCardForm> {
               child: Text('Save'),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  await DatabaseService().updateCardData(question, answer,
-                      user.uid, widget.collectionId, description);
+                  await DatabaseService(uid: user.uid).updateCardData(
+                      question,
+                      answer,
+                      user.uid,
+                      widget.collectionId,
+                      description,
+                      profile.numOfCards);
+
                   Navigator.pop(context);
                 }
               },
