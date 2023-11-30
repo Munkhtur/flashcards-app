@@ -2,21 +2,15 @@ import 'package:flutter/material.dart';
 
 final lightTheme = ThemeData(
   primaryColor: Color(0xFF264653),
-  backgroundColor: Color(0xFFfcfcfc),
   secondaryHeaderColor: Color(0xFFe76f51),
-  toggleableActiveColor: Color(0xFF264653),
-  cardColor: Color(0xFFfcfcfc),
-
+  cardColor: Color.fromARGB(255, 53, 73, 92),
+  // accentColor: Colors.white,
+  brightness: Brightness.light,
   primaryTextTheme: TextTheme(
     titleLarge: TextStyle(
       color: Color(0xFF264653),
     ),
   ),
-  // textTheme: TextTheme(
-  //   subtitle2: TextStyle(
-  //     color: Colors.black,
-  //   ),
-  // ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: TextButton.styleFrom(
       backgroundColor: Color(0xFFe76f51),
@@ -25,13 +19,58 @@ final lightTheme = ThemeData(
       textStyle: const TextStyle(fontSize: 20),
     ),
   ),
+  checkboxTheme: CheckboxThemeData(
+    fillColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Color(0xFF264653);
+      }
+      return null;
+    }),
+  ),
+  radioTheme: RadioThemeData(
+    fillColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Color(0xFF264653);
+      }
+      return null;
+    }),
+  ),
+  switchTheme: SwitchThemeData(
+    thumbColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Color(0xFF264653);
+      }
+      return null;
+    }),
+    trackColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Color(0xFF264653);
+      }
+      return null;
+    }),
+  ),
+//  colorScheme: ColorScheme(background: Color(0xFFfcfcfc), brightness: Brightness.light, primary: Colors.red),
 );
 
 final darkTheme = ThemeData(
-  toggleableActiveColor: Colors.white,
-  primaryColor: Color(0xFF264653),
-  accentColor: Colors.white,
-  backgroundColor: Color(0xFF3F5971),
+  primaryColor: Colors.white,
+
   secondaryHeaderColor: Color(0xFFe76f51),
   brightness: Brightness.dark,
   cardColor: Color.fromARGB(255, 53, 73, 92),
@@ -48,4 +87,51 @@ final darkTheme = ThemeData(
       textStyle: const TextStyle(fontSize: 20),
     ),
   ),
+  checkboxTheme: CheckboxThemeData(
+    fillColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Colors.white;
+      }
+      return null;
+    }),
+  ),
+  radioTheme: RadioThemeData(
+    fillColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Colors.white;
+      }
+      return null;
+    }),
+  ),
+  switchTheme: SwitchThemeData(
+    thumbColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Colors.white;
+      }
+      return null;
+    }),
+    trackColor:
+        MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+      if (states.contains(MaterialState.disabled)) {
+        return null;
+      }
+      if (states.contains(MaterialState.selected)) {
+        return Colors.white;
+      }
+      return null;
+    }),
+  ),
+//  colorScheme: ColorScheme(background: Color.fromARGB(255, 30, 29, 29)),
 );

@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flashcards/models/profile.dart';
 import 'package:flashcards/models/user.dart';
 import 'package:flashcards/providers/common.dart';
 import 'package:flashcards/services/auth.dart';
@@ -49,7 +47,7 @@ class _ProfileState extends State<Profile> {
                           value.data!.name,
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1!
+                              .titleMedium!
                               .copyWith(
                                   color: Color.fromARGB(255, 185, 185, 185)),
                         ),

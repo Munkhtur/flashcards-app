@@ -2,7 +2,6 @@ import 'dart:async';
 // import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flashcards/models/profile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CommonProvider extends ChangeNotifier {

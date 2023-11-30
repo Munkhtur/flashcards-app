@@ -1,13 +1,6 @@
-import 'package:flashcards/models/profile.dart';
 import 'package:flashcards/services/auth.dart';
-import 'package:flashcards/shared/constants.dart';
 import 'package:flashcards/shared/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:provider/provider.dart';
-import '../../providers/common.dart';
-import '../../services/database.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
@@ -19,7 +12,6 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
   String passwordConfirm = '';
@@ -135,11 +127,11 @@ class _RegisterState extends State<Register> {
                                           labelText: 'Email Address',
                                           labelStyle: Theme.of(context)
                                               .textTheme
-                                              .subtitle2,
+                                              .titleSmall,
                                           hintText: 'Enter your email here...',
                                           hintStyle: Theme.of(context)
                                               .textTheme
-                                              .bodyText2,
+                                              .bodyMedium,
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0xFFF1F4F8),
@@ -181,7 +173,7 @@ class _RegisterState extends State<Register> {
                                         ),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText2,
+                                            .bodyMedium,
                                       ),
                                     ),
                                   ],
@@ -207,12 +199,12 @@ class _RegisterState extends State<Register> {
                                           labelText: 'Password',
                                           labelStyle: Theme.of(context)
                                               .textTheme
-                                              .subtitle2,
+                                              .titleSmall,
                                           hintText:
                                               'Enter your password here...',
                                           hintStyle: Theme.of(context)
                                               .textTheme
-                                              .bodyText2,
+                                              .bodyMedium,
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0xFFF1F4F8),
@@ -270,7 +262,7 @@ class _RegisterState extends State<Register> {
                                         ),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1,
+                                            .titleMedium,
                                       ),
                                     ),
                                   ],
@@ -296,12 +288,12 @@ class _RegisterState extends State<Register> {
                                           labelText: 'Confirm Password',
                                           labelStyle: Theme.of(context)
                                               .textTheme
-                                              .subtitle2,
+                                              .titleSmall,
                                           hintText:
                                               'Enter your password here again...',
                                           hintStyle: Theme.of(context)
                                               .textTheme
-                                              .bodyText2,
+                                              .bodyMedium,
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0xFFF1F4F8),
@@ -359,7 +351,7 @@ class _RegisterState extends State<Register> {
                                         ),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .subtitle1,
+                                            .titleMedium,
                                       ),
                                     ),
                                   ],

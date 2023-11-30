@@ -1,15 +1,12 @@
-import 'dart:html';
-
 import 'package:flashcards/services/database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class titleBox extends StatefulWidget {
+class TitleBox extends StatefulWidget {
   final Function onTap;
   final Function setname;
-  String oldTitle;
-  String id;
-  titleBox({
+  final String oldTitle;
+  final String id;
+  TitleBox({
     super.key,
     required this.onTap,
     required this.oldTitle,
@@ -18,10 +15,10 @@ class titleBox extends StatefulWidget {
   });
 
   @override
-  State<titleBox> createState() => _titleBoxState();
+  State<TitleBox> createState() => TitleBoxState();
 }
 
-class _titleBoxState extends State<titleBox> {
+class TitleBoxState extends State<TitleBox> {
   TextEditingController _controller = new TextEditingController();
   FocusNode myfocus = FocusNode();
   String title = "";
@@ -35,7 +32,7 @@ class _titleBoxState extends State<titleBox> {
       } else {
         widget.onTap();
         widget.setname(title);
-        DatabaseService().updateDeckName(title, widget.id);
+        DatabaseService().updateDeckName(name: title, id: widget.id);
       }
     });
     super.initState();
@@ -52,15 +49,16 @@ class _titleBoxState extends State<titleBox> {
             title = value;
           });
         },
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Theme.of(context).primaryColor),
         controller: _controller,
         focusNode: myfocus,
-        cursorColor: Colors.white,
+        cursorColor: Colors.black,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Rename',
-          hintStyle:
-              TextStyle(fontWeight: FontWeight.w300, color: Colors.white),
+          hintStyle: TextStyle(
+              fontWeight: FontWeight.w300,
+              color: Theme.of(context).primaryColor),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Color(0xFFF1F4F8),

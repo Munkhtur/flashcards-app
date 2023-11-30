@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flashcards/models/card.dart';
 import 'package:flashcards/models/deck.dart';
 import 'package:flashcards/models/profile.dart';
-import 'package:flashcards/providers/common.dart';
-import 'package:provider/provider.dart';
 
 class DatabaseService {
   final String? uid;
@@ -34,11 +30,16 @@ class DatabaseService {
     });
   }
 
-  Future updateDeckData(String name) async {
-    return await deckCollection.doc().set({
+  Future updateDeckData(
+    String name,
+  ) async {
+    Map<String, dynamic> dataToUpdate = {
       'name': name,
       'uid': this.uid,
-    });
+      'progress': 0
+    };
+
+    return await deckCollection.doc().set(dataToUpdate);
   }
 
   Future updateCardData(String question, String answer, String uid,
@@ -53,8 +54,17 @@ class DatabaseService {
     updateProfile("numOfCards", cur + 1);
   }
 
-  Future updateDeckName(String name, String id) async {
-    return await deckCollection.doc(id).update({'name': name});
+  Future updateDeckName(
+      {String? name, required String id, double? progress}) async {
+    Map<String, dynamic> dataToUpdate = {};
+    if (progress != null) {
+      dataToUpdate['progress'] = progress;
+    }
+    if (name != null) {
+      dataToUpdate['name'] = name;
+    }
+
+    return await deckCollection.doc(id).update(dataToUpdate);
   }
 
   List<DeckModel> _deckListFromSnapshot(QuerySnapshot snapshot) {
@@ -63,6 +73,7 @@ class DatabaseService {
       return DeckModel(
         name: data['name'] ?? "",
         uid: data['uid'] ?? "",
+        progress: (data["progress"] ?? 0)?.toDouble() ?? 0.0,
         id: doc.reference.id,
       );
     }).toList();
@@ -84,7 +95,6 @@ class DatabaseService {
   }
 
   List<FlashCardModel> _cardsListFromSnapshot(QuerySnapshot snapshot) {
-    print({"snapshotcardsmdoel": snapshot});
     return snapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data()! as Map<String, dynamic>;
       return FlashCardModel(
