@@ -1,4 +1,5 @@
 import 'package:flashcards/services/auth.dart';
+import 'package:flashcards/shared/constants.dart';
 import 'package:flashcards/shared/loading.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,7 @@ class _RegisterState extends State<Register> {
                         Container(
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.background,
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 3,
@@ -123,57 +124,14 @@ class _RegisterState extends State<Register> {
                                           });
                                         },
                                         obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: 'Email Address',
-                                          labelStyle: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                          hintText: 'Enter your email here...',
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium,
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFF1F4F8),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16, 24, 0, 24),
-                                        ),
+                                        decoration: CustomInput(
+                                                labelText: "Email",
+                                                hintText: 'Email')
+                                            .getInputEcoration(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyMedium,
+                                            .bodyMedium!
+                                            .copyWith(color: Colors.black),
                                       ),
                                     ),
                                   ],
@@ -195,74 +153,14 @@ class _RegisterState extends State<Register> {
                                           });
                                         },
                                         obscureText: !passwordVisibility,
-                                        decoration: InputDecoration(
-                                          labelText: 'Password',
-                                          labelStyle: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                          hintText:
-                                              'Enter your password here...',
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium,
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFF1F4F8),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16, 24, 0, 24),
-                                          suffixIcon: InkWell(
-                                            onTap: () => setState(
-                                              () => passwordVisibility =
-                                                  !passwordVisibility,
-                                            ),
-                                            focusNode:
-                                                FocusNode(skipTraversal: true),
-                                            child: Icon(
-                                              passwordVisibility
-                                                  ? Icons.visibility_outlined
-                                                  : Icons
-                                                      .visibility_off_outlined,
-                                              color: Color(0xFF95A1AC),
-                                              size: 22,
-                                            ),
-                                          ),
-                                        ),
+                                        decoration: CustomInput(
+                                                labelText: "Password",
+                                                hintText: 'Password')
+                                            .getInputEcoration(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium,
+                                            .bodyMedium!
+                                            .copyWith(color: Colors.black),
                                       ),
                                     ),
                                   ],
@@ -284,74 +182,14 @@ class _RegisterState extends State<Register> {
                                           });
                                         },
                                         obscureText: !passwordVisibility,
-                                        decoration: InputDecoration(
-                                          labelText: 'Confirm Password',
-                                          labelStyle: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                          hintText:
-                                              'Enter your password here again...',
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium,
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFF1F4F8),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 2,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16, 24, 0, 24),
-                                          suffixIcon: InkWell(
-                                            onTap: () => setState(
-                                              () => passwordVisibility =
-                                                  !passwordVisibility,
-                                            ),
-                                            focusNode:
-                                                FocusNode(skipTraversal: true),
-                                            child: Icon(
-                                              passwordVisibility
-                                                  ? Icons.visibility_outlined
-                                                  : Icons
-                                                      .visibility_off_outlined,
-                                              color: Color(0xFF95A1AC),
-                                              size: 22,
-                                            ),
-                                          ),
-                                        ),
+                                        decoration: CustomInput(
+                                                labelText: "Confirm Password",
+                                                hintText: 'Confirm Password')
+                                            .getInputEcoration(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium,
+                                            .bodyMedium!
+                                            .copyWith(color: Colors.black),
                                       ),
                                     ),
                                   ],
@@ -371,7 +209,12 @@ class _RegisterState extends State<Register> {
                                     TextButton(
                                       style: Theme.of(context)
                                           .elevatedButtonTheme
-                                          .style,
+                                          .style!
+                                          .copyWith(
+                                              minimumSize:
+                                                  MaterialStateProperty.all(
+                                                      Size(
+                                                          double.infinity, 1))),
                                       onPressed: () async {
                                         if (password == passwordConfirm) {
                                           await _auth
@@ -401,7 +244,13 @@ class _RegisterState extends State<Register> {
                                     padding: const EdgeInsets.all(16.0),
                                     textStyle: const TextStyle(fontSize: 20),
                                   ),
-                                  child: Text('Login'),
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground),
+                                  ),
                                   onPressed: () {
                                     widget.toggleView();
                                   },

@@ -71,7 +71,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Row(
                           children: [
-                            Text('Active cards'),
+                            Text('Active cards: '),
                             Text(value.data!.numOfCards.toString()),
                           ],
                         ),
@@ -80,7 +80,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         Row(
                           children: [
-                            Text('Mastered'),
+                            Text('Mastered: '),
                             Text(value.data!.numOfMasterd.toString())
                           ],
                         )
@@ -114,20 +114,33 @@ class _ProfileState extends State<Profile> {
                   width: 200.0,
                   height: 50.0,
                 ),
-                Container(
-                  // width: double.infinity,
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                      onPressed: (() async {
-                        await _auth.signOut();
-                      }),
+                InkWell(
+                  onTap: (() async {
+                    await _auth.signOut();
+                  }),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                      top: BorderSide(
+                          color: Theme.of(context).colorScheme.onBackground),
+                      bottom: BorderSide(
+                          color: Theme.of(context).colorScheme.onBackground),
+                    )),
+                    // width: double.infinity,
+                    alignment: Alignment.centerLeft,
+
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: Text(
                         "Sign out",
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               color: Color(
                                   0xFFe76f51), // Set your desired text color here
                             ),
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ));
@@ -205,7 +218,8 @@ class _ProfileState extends State<Profile> {
                     child: Text(
                       'Done',
                       style: TextStyle(
-                          color: Theme.of(context).toggleableActiveColor),
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
                   ),
                 ),

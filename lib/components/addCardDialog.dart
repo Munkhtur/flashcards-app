@@ -41,6 +41,7 @@ class _AddCardFormState extends State<AddCardForm> {
               height: 20,
             ),
             TextFormField(
+              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               decoration: CustomInput(labelText: "Term", hintText: 'Term')
                   .getInputEcoration(),
               validator: (val) => val!.isEmpty ? '' : null,
@@ -55,6 +56,7 @@ class _AddCardFormState extends State<AddCardForm> {
               height: 20,
             ),
             TextFormField(
+              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               decoration:
                   CustomInput(labelText: "Definition", hintText: 'Definition')
                       .getInputEcoration(),
@@ -72,13 +74,15 @@ class _AddCardFormState extends State<AddCardForm> {
             Container(
               // height: 300,
               child: TextFormField(
+                maxLines: 5, // <-- SEE HERE
+                style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                 decoration:
                     CustomInput(labelText: "Example", hintText: 'Example')
-                        .getInputEcoration()
-                        .copyWith(
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 50), // Adjust the vertical padding
-                        ),
+                        .getInputEcoration(),
+                // .copyWith(
+                //   contentPadding: EdgeInsets.symmetric(
+                //       vertical: 50), // Adjust the vertical padding
+                // ),
                 validator: (val) => val!.isEmpty ? '' : null,
                 initialValue: description,
                 onChanged: (value) {
@@ -96,9 +100,9 @@ class _AddCardFormState extends State<AddCardForm> {
                 minimumSize: const Size.fromHeight(50), // NEW
               ),
               child: Text('Save'),
-              onPressed: () async {
+              onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  await DatabaseService(uid: user.uid).updateCardData(
+                  DatabaseService(uid: user.uid).updateCardData(
                       question,
                       answer,
                       user.uid,

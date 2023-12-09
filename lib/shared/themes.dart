@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 final lightTheme = ThemeData(
-  primaryColor: Color(0xFF264653),
+  dividerColor: const Color.fromARGB(255, 114, 113, 113),
+  primaryColor: Color(0xff1f1d2b),
   secondaryHeaderColor: Color(0xFFe76f51),
-  cardColor: Color.fromARGB(255, 53, 73, 92),
+  cardColor: Color(0xff3a3f55),
   // accentColor: Colors.white,
   brightness: Brightness.light,
   primaryTextTheme: TextTheme(
@@ -17,6 +18,7 @@ final lightTheme = ThemeData(
       foregroundColor: Colors.white,
       padding: const EdgeInsets.all(16.0),
       textStyle: const TextStyle(fontSize: 20),
+      // minimumSize: Size(double.infinity, 48.0),
     ),
   ),
   checkboxTheme: CheckboxThemeData(
@@ -65,15 +67,27 @@ final lightTheme = ThemeData(
       return null;
     }),
   ),
-//  colorScheme: ColorScheme(background: Color(0xFFfcfcfc), brightness: Brightness.light, primary: Colors.red),
+  colorScheme: ColorScheme(
+      background: Color(0xFFfcfcfc),
+      brightness: Brightness.light,
+      primary: const Color.fromARGB(255, 54, 244, 124),
+      onPrimary: const Color.fromARGB(255, 216, 216, 216),
+      secondary: const Color.fromARGB(255, 86, 54, 244),
+      onSecondary: const Color.fromARGB(255, 54, 133, 244),
+      error: Colors.red,
+      onError: const Color.fromARGB(255, 193, 192, 192),
+      onBackground: const Color.fromARGB(255, 151, 151, 151),
+      surface: const Color.fromARGB(255, 51, 51, 51),
+      onSurface: const Color.fromARGB(255, 0, 0, 0)),
 );
 
 final darkTheme = ThemeData(
-  primaryColor: Colors.white,
-
+  dividerColor: const Color.fromARGB(255, 150, 150, 150),
+  primaryColor: Color(0xff1f1d2b),
   secondaryHeaderColor: Color(0xFFe76f51),
   brightness: Brightness.dark,
-  cardColor: Color.fromARGB(255, 53, 73, 92),
+  // cardColor: Color(0xff252836),
+  cardColor: Color(0xff3a3f55),
   primaryTextTheme: TextTheme(
     titleLarge: TextStyle(
       color: Colors.white,
@@ -85,6 +99,7 @@ final darkTheme = ThemeData(
       foregroundColor: Colors.white,
       padding: const EdgeInsets.all(16.0),
       textStyle: const TextStyle(fontSize: 20),
+      minimumSize: Size(10, 48.0),
     ),
   ),
   checkboxTheme: CheckboxThemeData(
@@ -133,5 +148,16 @@ final darkTheme = ThemeData(
       return null;
     }),
   ),
-//  colorScheme: ColorScheme(background: Color.fromARGB(255, 30, 29, 29)),
+  colorScheme: ColorScheme(
+      background: Color(0xff1f1d2b),
+      brightness: Brightness.dark,
+      primary: Color.fromARGB(255, 54, 55, 53),
+      onPrimary: const Color.fromARGB(255, 255, 255, 255),
+      secondary: const Color.fromARGB(255, 54, 124, 244),
+      onSecondary: const Color.fromARGB(255, 179, 175, 174),
+      error: Colors.red,
+      onError: const Color.fromARGB(255, 76, 76, 76),
+      onBackground: const Color.fromARGB(255, 232, 232, 232),
+      surface: Color(0xff1f1d2b),
+      onSurface: Color.fromARGB(255, 255, 255, 255)),
 );

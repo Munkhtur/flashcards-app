@@ -7,12 +7,12 @@ class CustomInput {
 
   CustomInput({this.context, required this.labelText, required this.hintText});
 
-  dynamic getInputEcoration() {
+  InputDecoration getInputEcoration() {
     var textInputDecoration = InputDecoration(
       labelText: labelText,
       hintText: hintText,
       labelStyle: TextStyle(color: Color(0xFFe76f51)),
-      hintStyle: TextStyle(color: Color.fromARGB(255, 187, 186, 185)),
+      hintStyle: TextStyle(color: Color.fromARGB(255, 33, 19, 4)),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Color(0xFFF1F4F8),

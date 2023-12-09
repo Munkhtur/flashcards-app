@@ -38,20 +38,39 @@ class DatabaseService {
       'uid': this.uid,
       'progress': 0
     };
+    DocumentReference docRef = deckCollection.doc();
 
-    return await deckCollection.doc().set(dataToUpdate);
+    await docRef.set(dataToUpdate);
+
+    DocumentSnapshot updatedSnapshot = await docRef.get();
+
+    Map<String, dynamic> data = updatedSnapshot.data()! as Map<String, dynamic>;
+    return DeckModel(
+      name: data["name"] ?? "",
+      uid: data['uid'] ?? "",
+      progress: (data["progress"] ?? 0)?.toDouble() ?? 0.0,
+      id: updatedSnapshot.id,
+    );
   }
 
   Future updateCardData(String question, String answer, String uid,
       String collectionId, String description, int cur) async {
-    await cardCollection.doc().set({
-      "question": question,
-      "answer": answer,
-      "uid": uid,
-      "collectionId": collectionId,
-      "description": description,
-    });
-    updateProfile("numOfCards", cur + 1);
+    try {
+      await cardCollection.doc().set({
+        "question": question,
+        "answer": answer,
+        "uid": uid,
+        "collectionId": collectionId,
+        "description": description,
+      });
+      updateProfile("numOfCards", cur + 1);
+
+      // The data has been successfully updated (locally, if offline)
+      print("Update successful!");
+    } catch (e) {
+      // Handle errors that might occur during the update
+      print("Error updating data: $e");
+    }
   }
 
   Future updateDeckName(
@@ -63,7 +82,6 @@ class DatabaseService {
     if (name != null) {
       dataToUpdate['name'] = name;
     }
-
     return await deckCollection.doc(id).update(dataToUpdate);
   }
 

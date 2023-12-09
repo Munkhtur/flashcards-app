@@ -1,4 +1,5 @@
 import 'package:flashcards/services/auth.dart';
+import 'package:flashcards/shared/constants.dart';
 import 'package:flashcards/shared/loading.dart';
 import 'package:flutter/material.dart';
 
@@ -127,61 +128,14 @@ class _SignInState extends State<SignIn> {
                                             });
                                           },
                                           obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Email Address',
-                                            labelStyle: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall,
-                                            hintText:
-                                                'Enter your email here...',
-                                            hintStyle: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFF1F4F8),
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color.fromARGB(
-                                                    255, 39, 49, 81),
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Colors.red,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            filled: true,
-                                            fillColor: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16, 24, 0, 24),
-                                          ),
+                                          decoration: CustomInput(
+                                                  labelText: "Email",
+                                                  hintText: 'Email')
+                                              .getInputEcoration(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyMedium,
+                                              .bodyMedium!
+                                              .copyWith(color: Colors.black),
                                         ),
                                       ),
                                     ],
@@ -205,79 +159,35 @@ class _SignInState extends State<SignIn> {
                                             });
                                           },
                                           obscureText: !passwordVisibility,
-                                          decoration: InputDecoration(
-                                            labelText: 'Password',
-                                            labelStyle: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall,
-                                            hintText:
-                                                'Enter your password here...',
-                                            hintStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Colors.white,
-                                                width: 2,
+                                          decoration: CustomInput(
+                                                  labelText: "Password",
+                                                  hintText: 'Password')
+                                              .getInputEcoration()
+                                              .copyWith(
+                                                suffixIcon: InkWell(
+                                                  focusNode: FocusNode(
+                                                      skipTraversal: true),
+                                                  child: Icon(
+                                                    passwordVisibility
+                                                        ? Icons
+                                                            .visibility_outlined
+                                                        : Icons
+                                                            .visibility_off_outlined,
+                                                    color: Color(0xFF95A1AC),
+                                                    size: 22,
+                                                  ),
+                                                  onTap: () => setState(
+                                                    () => passwordVisibility =
+                                                        !passwordVisibility,
+                                                  ),
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color.fromARGB(
-                                                    255, 39, 49, 81),
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Colors.red,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary,
-                                                width: 2,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            filled: true,
-                                            fillColor: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16, 24, 0, 24),
-                                            suffixIcon: InkWell(
-                                              onTap: () => setState(
-                                                () => passwordVisibility =
-                                                    !passwordVisibility,
-                                              ),
-                                              focusNode: FocusNode(
-                                                  skipTraversal: true),
-                                              child: Icon(
-                                                passwordVisibility
-                                                    ? Icons.visibility_outlined
-                                                    : Icons
-                                                        .visibility_off_outlined,
-                                                color: Color(0xFF95A1AC),
-                                                size: 22,
-                                              ),
-                                            ),
-                                          ),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleMedium,
+                                              .bodyMedium!
+                                              .copyWith(
+                                                color: Colors.black,
+                                              ),
                                         ),
                                       ),
                                     ],
@@ -297,7 +207,12 @@ class _SignInState extends State<SignIn> {
                                       TextButton(
                                         style: Theme.of(context)
                                             .elevatedButtonTheme
-                                            .style,
+                                            .style!
+                                            .copyWith(
+                                                minimumSize:
+                                                    MaterialStateProperty.all(
+                                                        Size(double.infinity,
+                                                            1))),
                                         onPressed: () async {
                                           if (_formKey.currentState!
                                               .validate()) {
@@ -336,10 +251,13 @@ class _SignInState extends State<SignIn> {
                                       padding: const EdgeInsets.all(16.0),
                                       textStyle: const TextStyle(fontSize: 20),
                                     ),
-                                    child: Text('Create Account',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall),
+                                    child: Text(
+                                      'Create Account',
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground),
+                                    ),
                                     onPressed: () {
                                       widget.toggleView();
                                     },

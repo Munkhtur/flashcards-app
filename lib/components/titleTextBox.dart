@@ -27,12 +27,17 @@ class TitleBoxState extends State<TitleBox> {
   void initState() {
     title = widget.oldTitle;
     _controller.text = title;
+    Future.delayed(Duration(seconds: 0), () {
+      myfocus.requestFocus(); //auto focus on second text field.
+    });
     myfocus.addListener(() {
       if (myfocus.hasFocus) {
       } else {
-        widget.onTap();
-        widget.setname(title);
-        DatabaseService().updateDeckName(name: title, id: widget.id);
+        widget.onTap(false);
+        if (widget.oldTitle != title && title != "") {
+          widget.setname(title);
+          DatabaseService().updateDeckName(name: title, id: widget.id);
+        }
       }
     });
     super.initState();
@@ -44,6 +49,8 @@ class TitleBoxState extends State<TitleBox> {
       alignment: Alignment.centerLeft,
       color: Color.fromARGB(0, 15, 94, 205),
       child: TextField(
+        maxLength: 20,
+
         onChanged: (value) {
           setState(() {
             title = value;
@@ -52,20 +59,22 @@ class TitleBoxState extends State<TitleBox> {
         style: TextStyle(color: Theme.of(context).primaryColor),
         controller: _controller,
         focusNode: myfocus,
-        cursorColor: Colors.black,
+        // autofocus: true,
+        cursorColor: const Color.fromARGB(255, 237, 237, 237),
         decoration: InputDecoration(
+          counter: SizedBox.shrink(),
           border: InputBorder.none,
           hintText: 'Rename',
           hintStyle: TextStyle(
               fontWeight: FontWeight.w300,
               color: Theme.of(context).primaryColor),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Color(0xFFF1F4F8),
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
+          // focusedBorder: OutlineInputBorder(
+          //   borderSide: BorderSide(
+          //     color: Color(0xFFF1F4F8),
+          //     width: 2,
+          //   ),
+          //   borderRadius: BorderRadius.circular(8),
+          // ),
         ),
       ),
     );

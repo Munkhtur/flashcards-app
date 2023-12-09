@@ -1,5 +1,6 @@
 import 'package:flashcards/models/deck.dart';
 import 'package:flashcards/screens/deck_view.dart';
+import 'package:flashcards/services/database.dart';
 import 'package:flutter/material.dart';
 
 class Deck extends StatelessWidget {
@@ -18,11 +19,14 @@ class Deck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onLongPress: () {
+        _showDeleteDialog(context);
+      },
       onTap: () => _onCardTap(context),
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
-          border: Border.all(color: Theme.of(context).primaryColor),
+          border: Border.all(color: Theme.of(context).colorScheme.onBackground),
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
@@ -38,6 +42,7 @@ class Deck extends StatelessWidget {
                 ),
                 Text(
                   data.name,
+                  textAlign: TextAlign.center,
                   style: Theme.of(context).primaryTextTheme.titleLarge,
                 ),
                 Padding(
@@ -64,6 +69,40 @@ class Deck extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  _showDeleteDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 0.0,
+          title: Text(data.name),
+          content: Text("Are you sure you want to delete this deck?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                DatabaseService().deleteDeck(data.id);
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text("Delete",
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground)),
+            ),
+          ],
+        );
+      },
     );
   }
 }

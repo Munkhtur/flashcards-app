@@ -48,6 +48,9 @@ dependencies:
   appinio_swiper: ^2.1.0
   fluttertoast: ^8.2.4
   flutter_launcher_icons: "^0.13.1"
+  flutter_native_splash: ^2.3.6
+  google_fonts: ^6.1.0
+  change_app_package_name: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -72,7 +75,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/icons/icon.jpeg
+    - assets/icons/icon.jpg
+    - assets/icons/logo-white.png
     # - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -103,17 +107,17 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/icon.jpeg"
+  image_path: "assets/icons/icon.jpg"
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
-    image_path: "assets/icons/icon.jpeg"
+    image_path: "assets/icons/icon.jpg"
     background_color: "#hexcode"
     theme_color: "#hexcode"
   windows:
     generate: true
-    image_path: "assets/icons/icon.jpeg"
+    image_path: "assets/icons/icon.jpg"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "assets/icons/icon.jpeg"
+    image_path: "assets/icons/icon.jpg"

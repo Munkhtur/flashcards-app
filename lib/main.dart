@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flashcards/firebase_options.dart';
 import 'package:flashcards/models/user.dart';
@@ -12,6 +13,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  FirebaseFirestore.instance.settings = Settings(
+    persistenceEnabled: true,
   );
   runApp(
     MultiProvider(
@@ -40,6 +45,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<CommonProvider>(context);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: themeProvider.themeMode,
