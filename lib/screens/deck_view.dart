@@ -33,7 +33,7 @@ class _DeckViewState extends State<DeckView> with TickerProviderStateMixin {
   int currentPage = 0;
   int score = 0;
   bool isEnd = false;
-  Color _scoreColor = const Color.fromARGB(255, 115, 113, 113);
+  Color _scoreColor = Color.fromARGB(255, 97, 96, 96);
   void onTap(bool istypeing) {
     setState(() {
       typing = istypeing;
@@ -60,8 +60,8 @@ class _DeckViewState extends State<DeckView> with TickerProviderStateMixin {
         if (status == AnimationStatus.completed) {
           setState(() {
             // Animation is complete, return to regular color
-            _scoreColor = const Color.fromARGB(
-                255, 123, 121, 121); // Change to the regular color
+            _scoreColor = Color.fromARGB(255, 97, 96, 96); 
+            
             // score = score + 1;
           });
         }
@@ -341,11 +341,11 @@ class _DeckViewState extends State<DeckView> with TickerProviderStateMixin {
                                     ),
                                     Text(
                                       " / ",
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 97, 96, 96)),
                                     ),
                                     Text(
                                       snapshot.data!.length.toString(),
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 97, 96, 96)),
                                     )
                                   ],
                                 )),
@@ -365,7 +365,7 @@ class _DeckViewState extends State<DeckView> with TickerProviderStateMixin {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              "Current progress " +
+                                              "Score " +
                                                   ((score /
                                                               snapshot.data!
                                                                   .length) *
@@ -453,7 +453,17 @@ class _DeckViewState extends State<DeckView> with TickerProviderStateMixin {
                           ],
                         ),
                       )
-                    : Text('nodata'),
+                    : Center(
+                    
+                      child: 
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [ Icon(Icons.add_circle_outline,size: 80,color: Theme.of(context).colorScheme.onBackground,),
+                      SizedBox(height: 30,),
+                    Text(" Add cards to continue", style: TextStyle(color: Theme.of(context).colorScheme.onBackground,),)
+                    ],)
+                    ),
               ),
             );
           });
@@ -476,7 +486,7 @@ class _DeckViewState extends State<DeckView> with TickerProviderStateMixin {
         if (status == AnimationStatus.completed) {
           setState(() {
             // Animation is complete, return to regular color
-            _scoreColor = Colors.white; // Change to the regular color
+            _scoreColor = Color.fromARGB(255, 97, 96, 96); // Change to the regular color
             // score = score + 1;
           });
         }
