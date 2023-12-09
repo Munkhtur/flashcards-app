@@ -122,9 +122,9 @@ class _ProfileState extends State<Profile> {
                     decoration: BoxDecoration(
                         border: Border(
                       top: BorderSide(
-                          color: Theme.of(context).colorScheme.onBackground),
+                          color: Theme.of(context).dividerColor,width: 2),
                       bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.onBackground),
+                          color: Theme.of(context).dividerColor, width: 2),
                     )),
                     // width: double.infinity,
                     alignment: Alignment.centerLeft,
