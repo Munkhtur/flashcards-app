@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/common.dart';
 import 'decks_list.dart';
+import 'package:flashcards/shared/loading.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, deckList, child) {
           if (deckList == null) {
             // Handle the case when data is still loading or an error occurred
-            return CircularProgressIndicator(); // or some other loading/error indicator
+            return Loading(); // or some other loading/error indicator
           } else {
             // Use the deckList in your DecksList widget
             return DecksList(data: deckList);

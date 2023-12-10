@@ -7,9 +7,13 @@ import 'package:flashcards/screens/wrapper.dart';
 import 'package:flashcards/services/auth.dart';
 import 'package:flashcards/shared/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  statusBarColor: Color(0xff1f1d2b) //or set color with: Color(0xFF0000FF)
+));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

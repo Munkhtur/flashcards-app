@@ -41,29 +41,11 @@ class _RegisterState extends State<Register> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (Theme.of(context).brightness ==
-                                  Brightness.dark)
-                                Image.asset(
-                                  'assets/images/background2.png',
-                                  width: 240,
-                                  height: 60,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              // if (!(Theme.of(context).brightness == Brightness.dark))
-                              //   Image.asset(
-                              //     'assets/images/uiLogo_robinDark@3x.png',
-                              //     width: 240,
-                              //     height: 60,
-                              //     fit: BoxFit.fitWidth,
-                              //   ),
-                            ],
-                          ),
+                        Image.asset(
+                          'assets/images/background2.png',
+                          width: 340,
+                          height: 350,
+                          fit: BoxFit.fitWidth,
                         ),
                         // Image.asset(
                         //   'assets/images/illi_2@2x.png',
@@ -128,11 +110,8 @@ class _RegisterState extends State<Register> {
                                         decoration: CustomInput(
                                                 labelText: "Email",
                                                 hintText: 'Email')
-                                            .getInputEcoration(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(color: Colors.black),
+                                           .getInputEcoration().copyWith(fillColor: Theme.of(context).colorScheme.secondary, labelStyle: TextStyle(color: Theme.of(context).colorScheme.onBackground),hintStyle: TextStyle(color: 
+                      Theme.of(context).colorScheme.onBackground)),
                                       ),
                                     ),
                                   ],
@@ -157,11 +136,8 @@ class _RegisterState extends State<Register> {
                                         decoration: CustomInput(
                                                 labelText: "Password",
                                                 hintText: 'Password')
-                                            .getInputEcoration(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(color: Colors.black),
+                                             .getInputEcoration().copyWith(fillColor: Theme.of(context).colorScheme.secondary, labelStyle: TextStyle(color: Theme.of(context).colorScheme.onBackground),hintStyle: TextStyle(color: 
+                      Theme.of(context).colorScheme.onBackground)),
                                       ),
                                     ),
                                   ],
@@ -186,11 +162,8 @@ class _RegisterState extends State<Register> {
                                         decoration: CustomInput(
                                                 labelText: "Confirm Password",
                                                 hintText: 'Confirm Password')
-                                            .getInputEcoration(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(color: Colors.black),
+                                            .getInputEcoration().copyWith(fillColor: Theme.of(context).colorScheme.secondary, labelStyle: TextStyle(color: Theme.of(context).colorScheme.onBackground),hintStyle: TextStyle(color: 
+                      Theme.of(context).colorScheme.onBackground)),
                                       ),
                                     ),
                                   ],
