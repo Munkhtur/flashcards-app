@@ -70,14 +70,14 @@ final lightTheme = ThemeData(
   colorScheme: ColorScheme(
       background: Color(0xFFfcfcfc),
       brightness: Brightness.light,
-      primary: const Color.fromARGB(255, 54, 244, 124),
+      primary: Color.fromARGB(255, 54, 55, 53),
       onPrimary: const Color.fromARGB(255, 216, 216, 216),
-      secondary: const Color.fromARGB(255, 86, 54, 244),
+      secondary: Color.fromARGB(255, 196, 196, 197),
       onSecondary: const Color.fromARGB(255, 54, 133, 244),
       error: Colors.red,
       onError: const Color.fromARGB(255, 193, 192, 192),
-      onBackground: const Color.fromARGB(255, 151, 151, 151),
-      surface: const Color.fromARGB(255, 51, 51, 51),
+      onBackground: Color.fromARGB(255, 102, 102, 102),
+      surface: Color.fromARGB(255, 248, 248, 248),
       onSurface: const Color.fromARGB(255, 0, 0, 0)),
 );
 
@@ -153,7 +153,7 @@ final darkTheme = ThemeData(
       brightness: Brightness.dark,
       primary: Color.fromARGB(255, 54, 55, 53),
       onPrimary: const Color.fromARGB(255, 255, 255, 255),
-      secondary: const Color.fromARGB(255, 54, 124, 244),
+      secondary: Color.fromARGB(255, 55, 52, 68),
       onSecondary: const Color.fromARGB(255, 179, 175, 174),
       error: Colors.red,
       onError: const Color.fromARGB(255, 76, 76, 76),

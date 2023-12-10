@@ -28,6 +28,7 @@ class _AddCardFormState extends State<AddCardForm> {
 
     return Container(
       // height: 1000,
+    
       child: Form(
         key: _formKey,
         child: Column(
@@ -43,7 +44,8 @@ class _AddCardFormState extends State<AddCardForm> {
             TextFormField(
               style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               decoration: CustomInput(labelText: "Term", hintText: 'Term')
-                  .getInputEcoration(),
+               .getInputEcoration().copyWith(fillColor: Theme.of(context).colorScheme.secondary, labelStyle: TextStyle(color: Theme.of(context).colorScheme.onBackground),hintStyle: TextStyle(color: 
+                      Theme.of(context).colorScheme.onBackground)),
               validator: (val) => val!.isEmpty ? '' : null,
               initialValue: question,
               onChanged: (value) {
@@ -59,7 +61,8 @@ class _AddCardFormState extends State<AddCardForm> {
               style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               decoration:
                   CustomInput(labelText: "Definition", hintText: 'Definition')
-                      .getInputEcoration(),
+                   .getInputEcoration().copyWith(fillColor: Theme.of(context).colorScheme.secondary, labelStyle: TextStyle(color: Theme.of(context).colorScheme.onBackground),hintStyle: TextStyle(color: 
+                      Theme.of(context).colorScheme.onBackground) ),
               validator: (val) => val!.isEmpty ? '' : null,
               initialValue: answer,
               onChanged: (value) {
@@ -78,7 +81,9 @@ class _AddCardFormState extends State<AddCardForm> {
                 style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                 decoration:
                     CustomInput(labelText: "Example", hintText: 'Example')
-                        .getInputEcoration(),
+                      .getInputEcoration().copyWith(fillColor: Theme.of(context).colorScheme.secondary, labelStyle: TextStyle(color: Theme.of(context).colorScheme.onBackground), hintStyle: TextStyle(color: 
+                      Theme.of(context).colorScheme.onBackground
+                      )),
                 // .copyWith(
                 //   contentPadding: EdgeInsets.symmetric(
                 //       vertical: 50), // Adjust the vertical padding

@@ -47,9 +47,7 @@ class _ProfileState extends State<Profile> {
                           value.data!.name,
                           style: Theme.of(context)
                               .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  color: Color.fromARGB(255, 185, 185, 185)),
+                              .titleMedium,
                         ),
                       ]),
                 ),

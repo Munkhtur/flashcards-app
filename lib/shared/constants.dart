@@ -9,9 +9,10 @@ class CustomInput {
 
   InputDecoration getInputEcoration() {
     var textInputDecoration = InputDecoration(
+      
       labelText: labelText,
       hintText: hintText,
-      labelStyle: TextStyle(color: Color(0xFFe76f51)),
+      labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
       hintStyle: TextStyle(color: Color.fromARGB(255, 33, 19, 4)),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
@@ -43,7 +44,7 @@ class CustomInput {
         borderRadius: BorderRadius.circular(8),
       ),
       filled: true,
-      fillColor: Colors.white,
+      fillColor: Color.fromARGB(255, 59, 56, 71),
       contentPadding: EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
     );
 
