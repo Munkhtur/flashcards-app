@@ -47,13 +47,14 @@ class _RegisterState extends State<Register> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // if (Theme.of(context).brightness == Brightness.dark)
-                              //   Image.asset(
-                              //     'assets/images/uiLogo_robinLight@3x.png',
-                              //     width: 240,
-                              //     height: 60,
-                              //     fit: BoxFit.fitWidth,
-                              //   ),
+                              if (Theme.of(context).brightness ==
+                                  Brightness.dark)
+                                Image.asset(
+                                  'assets/images/background2.png',
+                                  width: 240,
+                                  height: 60,
+                                  fit: BoxFit.fitWidth,
+                                ),
                               // if (!(Theme.of(context).brightness == Brightness.dark))
                               //   Image.asset(
                               //     'assets/images/uiLogo_robinDark@3x.png',

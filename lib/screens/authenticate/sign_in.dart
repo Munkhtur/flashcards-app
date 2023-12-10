@@ -42,19 +42,21 @@ class _SignInState extends State<SignIn> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // if (Theme.of(context).brightness == Brightness.dark)
-                              //   Image.asset(
-                              //     'assets/images/uiLogo_robinLight@3x.png',
-                              //     width: 240,
-                              //     height: 60,
-                              //     fit: BoxFit.fitWidth,
-                              //   ),
-                              // if (!(Theme.of(context).brightness == Brightness.dark))
+                              if (Theme.of(context).brightness ==
+                                  Brightness.dark)
+                                Image.asset(
+                                  'assets/images/background1.png',
+                                  width: 340,
+                                  height: 150,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              // if (!(Theme.of(context).brightness ==
+                              //     Brightness.dark))
                               //   Image.asset(
                               //     'assets/images/uiLogo_robinDark@3x.png',
                               //     width: 240,
@@ -65,7 +67,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         // Image.asset(
-                        //   'assets/images/illi_2@2x.png',
+                        //   'assets/images/scre.png',
                         //   width: 300,
                         //   height: 270,
                         //   fit: BoxFit.cover,
